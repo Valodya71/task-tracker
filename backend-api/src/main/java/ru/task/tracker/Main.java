@@ -1,4 +1,4 @@
-package ru.vldya.project;
+package ru.task.tracker;
 
 
 public class Main {
