@@ -4,4 +4,8 @@ spring:
 
   liquibase:
     enabled: true
-    change-log: classpath:/db/changelog/db.changelog-master.xml
+    change-log: classpath:/db/changelog/changelog-master.xml
+
+jwt:
+  secret: "JWT_SECRET=iV4453VFzU7+RQ6KYqjglpnrvxQ7P2a40S7PPZZ4Qjw="
+  expiration: 3600000 # 1 house
