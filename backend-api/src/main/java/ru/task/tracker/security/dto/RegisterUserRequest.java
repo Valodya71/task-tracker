@@ -1,15 +1,15 @@
 package ru.task.tracker.security.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
-public class RegisterRequest {
+@Data
+public class RegisterUserRequest {
 
     private String username;
 
     private String password;
+
+    private String confirmPassword;
 
     private String email;
 

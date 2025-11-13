@@ -1,60 +1,54 @@
 package ru.task.tracker.security.service;
 
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
-import ru.task.tracker.security.dto.LoginRequest;
-import ru.task.tracker.security.jwt.JwtService;
-import ru.task.tracker.security.model.User;
-import ru.task.tracker.security.repository.UserRepository;
-
+import org.springframework.web.bind.annotation.RequestBody;
+import ru.task.tracker.security.dto.JwtResponse;
+import ru.task.tracker.security.dto.LoginUserRequest;
+import ru.task.tracker.security.dto.RegisterUserRequest;
+import ru.task.tracker.security.dto.RegisterUserResponse;
+import ru.task.tracker.security.entity.User;
+import ru.task.tracker.security.exceptions.AppError;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class AuthService {
 
-    private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
-    private final JwtService jwtService;
+    private final UserService userService;
+    private final ru.task.tracker.security.jwt.utils.JwtTokenUtils JwtTokenUtils;
+    private final AuthenticationManager authenticationManager;
 
-    @Transactional
-    public String registerUser(String username, String email, String password) {
-        if (userRepository.existsByUsername(username) ||
-                userRepository.existsByEmail(email)) {
-            return "User or email already in use";
+    public ResponseEntity<?> createNewUser(@RequestBody RegisterUserRequest userRequest) {
+        if (!userRequest.getPassword().equals(userRequest.getConfirmPassword())) {
+            return new ResponseEntity<>(new AppError(HttpStatus.BAD_REQUEST.value(), "the passwords don't match"), HttpStatus.BAD_REQUEST);
+        }
+        if (userService.findByUsername(userRequest.getUsername()).isPresent()) {
+            return new ResponseEntity<>(new AppError(HttpStatus.BAD_REQUEST.value(), "user with that name already exists"), HttpStatus.BAD_REQUEST);
         }
 
-        User user = User.builder()
-                .username(username)
-                .email(email)
-                .password(passwordEncoder.encode(password))
-                .build();
+        User user = userService.createNewUser(userRequest);
 
-        userRepository.save(user);
-
-        String token = getToken(user.getUsername());
-
-        return "User registered successfully. Token: " + token;
+        return ResponseEntity.ok(new RegisterUserResponse(
+                user.getId(),
+                user.getUsername(),
+                user.getEmail()
+        ));
     }
 
-    @Transactional()
-    public String login(LoginRequest request) {
-        User user = userRepository.findByUsername(request.getUsername())
-                .orElseThrow(() -> new RuntimeException("User not found"));
-
-        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-            throw new RuntimeException("Invalid password");
+    public ResponseEntity<?> createAuthToken(@RequestBody LoginUserRequest loginRequest) {
+        try {
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+        } catch (BadCredentialsException e) {
+            return new ResponseEntity<>(new AppError(HttpStatus.UNAUTHORIZED.value(), "Incorrect login or password"), HttpStatus.UNAUTHORIZED);
         }
-
-        String token = getToken(user.getUsername());
-        return "Login successful. Token: " + token;
+        UserDetails userDetails = userService.loadUserByUsername(loginRequest.getUsername());
+        String token = JwtTokenUtils.generateToken(userDetails);
+        return ResponseEntity.ok(new JwtResponse(token));
     }
-
-    private String getToken(String username) {
-        return jwtService.generateToken(username);
-    }
-
-
 }

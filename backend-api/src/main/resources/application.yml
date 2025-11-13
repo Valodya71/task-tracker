@@ -7,5 +7,5 @@ spring:
     change-log: classpath:/db/changelog/changelog-master.xml
 
 jwt:
-  secret: "JWT_SECRET=iV4453VFzU7+RQ6KYqjglpnrvxQ7P2a40S7PPZZ4Qjw="
-  expiration: 3600000 # 1 house
+  secret: vN3b8xQ1uF6wZ2yK9jM7pR0sX5vTqL1hY8eJ4aW2cEo=
+  lifetime : 30m

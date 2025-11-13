@@ -1,0 +1,45 @@
+body {
+    font-family: Arial, sans-serif;
+    max-width: 400px;
+    margin: 60px auto;
+    text-align: center;
+}
+
+form {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+input {
+    width: 90%;
+    margin: 5px 0;
+    padding: 8px;
+}
+
+button {
+    padding: 8px 12px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 6px;
+    background: #007bff;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #0056b3;
+}
+
+.msg {
+    min-height: 18px;
+    margin-top: 8px;
+    color: red;
+}
+
+.small {
+    font-size: 0.9em;
+    color: #555;
+}
