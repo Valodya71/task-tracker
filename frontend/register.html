@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Регистрация</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+<div class="background"></div>
+<div class="container">
+    <img src="assets/logo.png" class="logo" alt="Logo">
+    <h2>Создать аккаунт</h2>
+    <form id="registerForm" class="form">
+        <div class="input-group">
+            <i class="fa fa-user icon"></i>
+            <input type="text" id="regUsername" placeholder="Логин" required>
+        </div>
+        <div class="input-group">
+            <i class="fa fa-envelope icon"></i>
+            <input type="email" id="regEmail" placeholder="Email" required>
+        </div>
+        <div class="input-group">
+            <i class="fa fa-lock icon"></i>
+            <input type="password" id="regPassword" placeholder="Пароль" required>
+        </div>
+        <div class="input-group">
+            <i class="fa fa-lock icon"></i>
+            <input type="password" id="regConfirmPassword" placeholder="Повторите пароль" required>
+        </div>
+        <button type="submit">Зарегистрироваться</button>
+    </form>
+    <p>Уже есть аккаунт? <a href="index.html">Войти</a></p>
+    <div id="message"></div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="main.js"></script>
+</body>
+</html>
