@@ -7,7 +7,7 @@
 
 
     <changeSet id="2" author="volodya">
-        <createTable tableName="Task">
+        <createTable tableName="Tasks">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true" />
             </column>

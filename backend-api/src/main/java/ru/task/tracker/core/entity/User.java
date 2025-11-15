@@ -1,9 +1,11 @@
-package ru.task.tracker.core.domain;
+package ru.task.tracker.core.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity(name = "Users")
 @Getter
@@ -21,5 +23,8 @@ public class User {
 
     @Column(name = "email", unique = true, nullable = false)
     private String email;
+
+    @OneToMany(mappedBy = "Tasks")
+    private List<Task> tasks;
 
 }
