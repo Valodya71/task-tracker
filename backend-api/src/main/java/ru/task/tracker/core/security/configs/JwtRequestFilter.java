@@ -1,4 +1,4 @@
-package ru.task.tracker.security.configs;
+package ru.task.tracker.core.security.configs;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
@@ -13,7 +13,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import ru.task.tracker.security.jwt.utils.JwtTokenUtils;
+import ru.task.tracker.core.security.jwt.utils.JwtTokenUtils;
 
 import java.io.IOException;
 import java.util.stream.Collectors;

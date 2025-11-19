@@ -1,4 +1,4 @@
-package ru.task.tracker.security.service;
+package ru.task.tracker.core.security.service;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -6,9 +6,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import ru.task.tracker.security.dto.RegisterUserRequest;
-import ru.task.tracker.security.entity.User;
-import ru.task.tracker.security.repository.UserRepository;
+import ru.task.tracker.core.security.dto.RegisterUserRequest;
+import ru.task.tracker.core.security.entity.User;
+import ru.task.tracker.core.security.repository.UserRepository;
 
 import java.util.*;
 

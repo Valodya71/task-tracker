@@ -1,4 +1,4 @@
-package ru.task.tracker.security.service;
+package ru.task.tracker.core.security.service;
 
 
 import org.springframework.stereotype.Service;

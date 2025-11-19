@@ -1,31 +1,40 @@
-package ru.task.tracker.security.controller;
+package ru.task.tracker.core.security.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.task.tracker.security.dto.LoginUserRequest;
-import ru.task.tracker.security.dto.RegisterUserRequest;
-import ru.task.tracker.security.service.AuthService;
+import ru.task.tracker.core.security.dto.LoginUserRequest;
+import ru.task.tracker.core.security.dto.RegisterUserRequest;
+import ru.task.tracker.core.security.service.AuthService;
+import ru.task.tracker.core.security.service.CurrentUserService;
 
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping()
 @RequiredArgsConstructor
 public class AuthController {
 
     private final AuthService authService;
+    private final CurrentUserService currentUserService;
 
-    @PostMapping("/registration")
+    @PostMapping("/auth/registration")
     public ResponseEntity<?> createNewUser(@RequestBody RegisterUserRequest userRequest) {
         return authService.createNewUser(userRequest);
     }
 
-    @PostMapping("/login")
+    @PostMapping("/auth/login")
     public ResponseEntity<?> createAuthToken(@RequestBody LoginUserRequest loginRequest) {
         return authService.createAuthToken(loginRequest);
+    }
+
+    @GetMapping("/user")
+    public ResponseEntity<?> getUser(@RequestHeader("Authorization") String authHeader) {
+        return currentUserService.getCurrentUser(authHeader);
     }
 
 }

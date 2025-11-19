@@ -20,6 +20,9 @@
             <column name="email" type="VARCHAR">
                 <constraints nullable="false" unique="true"/>
             </column>
+            <column name="task_id" type="BIGINT">
+                <constraints unique="true"/>
+            </column>
         </createTable>
     </changeSet>
 

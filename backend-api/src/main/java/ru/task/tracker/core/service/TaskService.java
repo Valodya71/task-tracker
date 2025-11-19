@@ -1,17 +1,17 @@
 package ru.task.tracker.core.service;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import ru.task.tracker.core.repository.TaskRepository;
+import ru.task.tracker.core.dto.TaskRequest;
+import ru.task.tracker.core.entity.Task;
+import ru.task.tracker.core.entity.User;
 
-@Service
-@RequiredArgsConstructor
-public class TaskService {
+import java.util.List;
 
-    private final TaskRepository taskRepository;
+public interface TaskService {
 
-    public void createTask() {
-        //TODO
-    }
+    void createTask(User user, TaskRequest taskRequest);
+
+    void deleteTask(Task task);
+
+    List<Task> showAllTasks(Long id);
 
 }

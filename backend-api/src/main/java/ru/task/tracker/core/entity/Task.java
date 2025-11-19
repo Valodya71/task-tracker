@@ -41,7 +41,7 @@ public class Task {
     private LocalDateTime finishTime;
 
     @ManyToOne()
-    @JoinColumn(name = "task_id")
+    @JoinColumn(name = "user_id")
     private User user;
 
 }

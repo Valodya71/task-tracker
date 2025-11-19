@@ -1,4 +1,4 @@
-package ru.task.tracker.security.configs;
+package ru.task.tracker.core.security.configs;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.*;

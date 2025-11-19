@@ -1,4 +1,4 @@
-package ru.task.tracker.security.jwt.utils;
+package ru.task.tracker.core.security.jwt.utils;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

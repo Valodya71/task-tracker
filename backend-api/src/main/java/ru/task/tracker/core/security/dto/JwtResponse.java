@@ -1,4 +1,4 @@
-package ru.task.tracker.security.dto;
+package ru.task.tracker.core.security.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package ru.task.tracker.security.exceptions;
+package ru.task.tracker.core.security.exceptions;
 
 import lombok.Data;
 

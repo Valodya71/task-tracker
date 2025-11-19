@@ -1,8 +1,8 @@
-package ru.task.tracker.security.repository;
+package ru.task.tracker.core.security.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import ru.task.tracker.security.entity.User;
+import ru.task.tracker.core.security.entity.User;
 
 import java.util.Optional;
 

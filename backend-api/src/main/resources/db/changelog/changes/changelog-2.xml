@@ -26,10 +26,10 @@
     </changeSet>
 
     <changeSet id="3" author="volodya">
-        <addForeignKeyConstraint baseTableName="Task"
+        <addForeignKeyConstraint baseTableName="Tasks"
                                  baseColumnNames="user_id"
                                  constraintName="fk_task_user_id"
-                                 referencedTableName="User"
+                                 referencedTableName="Users"
                                  referencedColumnNames="id"/>
     </changeSet>
 
