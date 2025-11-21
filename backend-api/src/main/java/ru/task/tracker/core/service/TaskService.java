@@ -1,17 +1,18 @@
 package ru.task.tracker.core.service;
 
 import ru.task.tracker.core.dto.TaskRequest;
-import ru.task.tracker.core.entity.Task;
-import ru.task.tracker.core.entity.User;
+import ru.task.tracker.core.dto.TaskResponse;
 
 import java.util.List;
 
 public interface TaskService {
 
-    void createTask(User user, TaskRequest taskRequest);
+    void createTask(Long UserId, TaskRequest taskRequest);
 
-    void deleteTask(Task task);
+    List<TaskResponse> showAllTasks(Long id);
 
-    List<Task> showAllTasks(Long id);
+    void completedTask(Long userId, Long  taskId);
+
+    void deleteTask(Long userId, Long  taskId);
 
 }

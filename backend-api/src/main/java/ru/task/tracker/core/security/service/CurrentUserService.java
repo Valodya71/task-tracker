@@ -4,8 +4,10 @@ import org.springframework.http.ResponseEntity;
 
 public interface CurrentUserService{
 
+    Long getCurrentUserId(String authHeader)
+            ;
     ResponseEntity<?> getCurrentUser(String authHeader);
 
-    String getCurrentUserName(String authHeader);
+    String getCurrentUsername(String authHeader);
 
 }

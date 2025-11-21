@@ -32,9 +32,14 @@ public class AuthController {
         return authService.createAuthToken(loginRequest);
     }
 
-    @GetMapping("/user")
-    public ResponseEntity<?> getUser(@RequestHeader("Authorization") String authHeader) {
-        return currentUserService.getCurrentUser(authHeader);
+//    @GetMapping("/user")
+//    public ResponseEntity<?> getUser(@RequestHeader("Authorization") String authHeader) {
+//        return currentUserService.getCurrentUser(authHeader);
+//    }
+
+    @GetMapping("/userid")
+    public ResponseEntity<?> getUserId(@RequestHeader("Authorization") String authHeader) {
+        return ResponseEntity.ok(currentUserService.getCurrentUserId(authHeader));
     }
 
 }

@@ -2,13 +2,14 @@ package ru.task.tracker.core.security.service;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import ru.task.tracker.core.exception.UserNotFoundException;
 import ru.task.tracker.core.security.dto.RegisterUserRequest;
-import ru.task.tracker.core.security.entity.User;
-import ru.task.tracker.core.security.repository.UserRepository;
+import ru.task.tracker.core.security.entity.UserReg;
+import ru.task.tracker.core.security.entity.details.SecurityUser;
+import ru.task.tracker.core.security.repository.UserRegRepository;
 
 import java.util.*;
 
@@ -18,17 +19,21 @@ import java.util.*;
 @RequiredArgsConstructor
 public class UserService implements UserDetailsService {
 
-    private final UserRepository userRepository;
+    private final UserRegRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-    private final RoleService roleService;
+    //private final RoleService roleService;
 
-    public Optional<User> findByUsername(String username) {
+    public Optional<UserReg> findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
 
+    public Optional<UserReg> findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
     @Transactional
-    public User createNewUser(RegisterUserRequest userRequest) {
-        User user = new User();
+    public UserReg createNewUser(RegisterUserRequest userRequest) {
+        UserReg user = new UserReg();
         user.setUsername(userRequest.getUsername());
         user.setEmail(userRequest.getEmail());
         user.setPassword(passwordEncoder.encode(userRequest.getPassword()));
@@ -38,11 +43,12 @@ public class UserService implements UserDetailsService {
 
 
     @Override
-    public UserDetails loadUserByUsername(String username) {
-        User user = userRepository.findByUsername(username).orElseThrow(() -> new RuntimeException(
-                String.format("User not found with username: %s", username)));
+    public SecurityUser loadUserByUsername(String username) {
+        UserReg user = userRepository.findByUsername(username).orElseThrow(() -> new UserNotFoundException(
+                 username));
 
-        return new org.springframework.security.core.userdetails.User(
+        return new SecurityUser(
+                user.getId(),
                 user.getUsername(),
                 user.getPassword(),
                 Collections.emptyList() // без ролей

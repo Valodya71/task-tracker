@@ -3,6 +3,7 @@ package ru.task.tracker.core.security.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import ru.task.tracker.core.exception.UserNotFoundException;
 import ru.task.tracker.core.security.dto.UserResponse;
 import ru.task.tracker.core.security.jwt.utils.JwtTokenUtils;
 
@@ -20,13 +21,20 @@ class CurrentUserServiceImpl implements CurrentUserService {
 
         return userService.findByUsername(username)
                 .map(user -> ResponseEntity.ok(new UserResponse(user.getId(), user.getEmail())))
-                .orElse(ResponseEntity.notFound().build());
+                .orElseThrow(() -> new UserNotFoundException(username));
     }
 
     @Override
-    public String getCurrentUserName(String authHeader) {
+    public String getCurrentUsername(String authHeader) {
         String token = authHeader.replace("Bearer ", "");
         return jwtTokenUtils.getUsername(token);
+    }
+
+
+    @Override
+    public Long getCurrentUserId(String authHeader) {
+        String token = authHeader.replace("Bearer ", "");
+        return jwtTokenUtils.getUserId(token);
     }
 
 }

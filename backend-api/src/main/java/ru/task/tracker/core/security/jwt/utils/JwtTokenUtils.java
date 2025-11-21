@@ -4,8 +4,8 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+import ru.task.tracker.core.security.entity.details.SecurityUser;
 
 import java.time.Duration;
 import java.util.Collections;
@@ -23,13 +23,14 @@ public class JwtTokenUtils {
     @Value("${jwt.lifetime}")
     private Duration jwtLifetime;
 
-    public String generateToken(UserDetails userDetails) {
+    public String generateToken(SecurityUser userDetails) {
         Map<String, Object> claims = new HashMap<>();
 //        List<String> rolesList = userDetails.getAuthorities().stream()
 //                .map(GrantedAuthority::getAuthority)
 //                .collect(Collectors.toList());
         List<String> rolesList = Collections.emptyList();
         claims.put("roles", rolesList);
+        claims.put("userId", userDetails.getId());
 
         Date issuedDate = new Date();
         Date expitedDate = new Date(issuedDate.getTime() + jwtLifetime.toMillis());
@@ -45,6 +46,8 @@ public class JwtTokenUtils {
     public String getUsername(String token) {
         return getAllClaimsFromToken(token).getSubject();
     }
+
+    public Long getUserId(String token) {return getAllClaimsFromToken(token).get("userId", Long.class);}
 
 
     public List<String> getRoles(String token) {
