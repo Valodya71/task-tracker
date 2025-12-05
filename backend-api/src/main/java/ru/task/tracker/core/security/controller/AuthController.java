@@ -1,5 +1,6 @@
 package ru.task.tracker.core.security.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +24,7 @@ public class AuthController {
     private final CurrentUserService currentUserService;
 
     @PostMapping("/auth/registration")
-    public ResponseEntity<?> createNewUser(@RequestBody RegisterUserRequest userRequest) {
+    public ResponseEntity<?> createNewUser(@Valid @RequestBody RegisterUserRequest userRequest) {
         return authService.createNewUser(userRequest);
     }
 
@@ -31,11 +32,6 @@ public class AuthController {
     public ResponseEntity<?> createAuthToken(@RequestBody LoginUserRequest loginRequest) {
         return authService.createAuthToken(loginRequest);
     }
-
-//    @GetMapping("/user")
-//    public ResponseEntity<?> getUser(@RequestHeader("Authorization") String authHeader) {
-//        return currentUserService.getCurrentUser(authHeader);
-//    }
 
     @GetMapping("/userid")
     public ResponseEntity<?> getUserId(@RequestHeader("Authorization") String authHeader) {

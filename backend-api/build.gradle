@@ -1,5 +1,7 @@
 plugins {
     id 'org.springframework.boot' version "3.2.5"
+    id 'com.palantir.docker' version '0.35.0'
+    id 'java'
 }
 
 ext{
@@ -34,3 +36,8 @@ bootJar {
     archiveVersion = '1.0.0'
 }
 
+docker {
+    name "backend-api:1.0.0"
+    files 'build/libs/backend-api-1.0.0.jar'
+    buildArgs(['JAR_FILE': "backend-api-1.0.0.jar"])
+}

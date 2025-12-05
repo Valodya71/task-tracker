@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/task_tracker_db
+    url: jdbc:postgresql://postgres-backend:5432/TASK_TRACKER_DB
     driver-class-name: org.postgresql.Driver
     username: postgres
     password: postgres
@@ -13,3 +13,12 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  liquibase:
+    enabled: true
+    change-log: classpath:/db/changelog/changelog-master.xml
+    drop-first: false
+    liquibase-schema: public
+    default-schema: public
+    database-change-log-table: databasechangelog
+    database-change-log-lock-table: databasechangeloglock

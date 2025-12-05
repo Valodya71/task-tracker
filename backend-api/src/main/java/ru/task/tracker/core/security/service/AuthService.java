@@ -6,12 +6,12 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
+import ru.task.tracker.core.entity.User;
 import ru.task.tracker.core.exception.BadRequestException;
 import ru.task.tracker.core.security.dto.JwtResponse;
 import ru.task.tracker.core.security.dto.LoginUserRequest;
 import ru.task.tracker.core.security.dto.RegisterUserRequest;
 import ru.task.tracker.core.security.dto.RegisterUserResponse;
-import ru.task.tracker.core.security.entity.UserReg;
 import ru.task.tracker.core.security.entity.details.SecurityUser;
 
 @Service
@@ -33,7 +33,7 @@ public class AuthService {
             throw new BadRequestException("Email with that email already exists");
         }
 
-        UserReg user = userService.createNewUser(userRequest);
+        User user = userService.createNewUser(userRequest);
 
         return ResponseEntity.ok(new RegisterUserResponse(
                 user.getId(),

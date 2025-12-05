@@ -22,7 +22,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "Tasks")
+@Table(name = "tasks")
 public class Task {
 
     @Id

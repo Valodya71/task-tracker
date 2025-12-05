@@ -7,7 +7,7 @@
 
 
     <changeSet id="2" author="volodya">
-        <createTable tableName="Tasks">
+        <createTable tableName="tasks">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true" />
             </column>
@@ -26,10 +26,10 @@
     </changeSet>
 
     <changeSet id="3" author="volodya">
-        <addForeignKeyConstraint baseTableName="Tasks"
+        <addForeignKeyConstraint baseTableName="tasks"
                                  baseColumnNames="user_id"
                                  constraintName="fk_task_user_id"
-                                 referencedTableName="Users"
+                                 referencedTableName="users"
                                  referencedColumnNames="id"
                                  onDelete="CASCADE"
                                  onUpdate="CASCADE"/>

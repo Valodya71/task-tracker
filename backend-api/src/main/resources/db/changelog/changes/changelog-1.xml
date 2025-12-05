@@ -5,9 +5,10 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.2.xsd">
 
+
         
     <changeSet id="1" author="volodya">
-        <createTable tableName="Users">
+        <createTable tableName="users">
             <column autoIncrement="true" name = "id" type = "BIGINT">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
@@ -20,9 +21,9 @@
             <column name="email" type="VARCHAR">
                 <constraints nullable="false" unique="true"/>
             </column>
-            <column name="task_id" type="BIGINT">
-                <constraints unique="true"/>
-            </column>
+<!--            <column name="task_id" type="BIGINT">-->
+<!--                <constraints unique="true"/>-->
+<!--            </column>-->
         </createTable>
     </changeSet>
 

@@ -1,0 +1,39 @@
+
+networks:
+  task-tracker-network:
+
+services:
+  postgres-backend:
+    networks:
+      [task-tracker-network]
+    container_name: postgres-backend
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - ./postgres-database-init:/docker-entrypoint-initdb.d
+    ports:
+      - "5432:5432"
+
+  backend-api:
+    networks:
+      [task-tracker-network]
+    build:
+      context: ./backend-api/build/docker   # Путь к папке с Dockerfile и JAR
+      dockerfile: Dockerfile
+    container_name: backend-api
+    environment:
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres-backend:
+        condition: service_healthy
+
