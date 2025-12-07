@@ -5,7 +5,7 @@ networks:
 services:
   postgres-backend:
     networks:
-      [task-tracker-network]
+      - task-tracker-network
     container_name: postgres-backend
     image: postgres
     environment:
@@ -23,7 +23,7 @@ services:
 
   backend-api:
     networks:
-      [task-tracker-network]
+      - task-tracker-network
     build:
       context: ./backend-api/build/docker   # Путь к папке с Dockerfile и JAR
       dockerfile: Dockerfile

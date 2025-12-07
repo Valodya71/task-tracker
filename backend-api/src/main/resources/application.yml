@@ -2,7 +2,12 @@ spring:
   profiles:
     default: h2
 
+  liquibase:
+     enabled: true
+     change-log: classpath:db/changelog/changelog-master.xml
+
 
 jwt:
   secret: vN3b8xQ1uF6wZ2yK9jM7pR0sX5vTqL1hY8eJ4aW2cEo=
   lifetime : 30m
+
